@@ -1,0 +1,960 @@
+/* ===========================
+   リセット & ベース
+=========================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-primary: #b8a9d9;
+  --color-primary-dark: #7c6aaa;
+  --color-primary-light: #e8e0f5;
+  --color-accent: #f0a0b8;
+  --color-accent-dark: #d4607a;
+  --color-gold: #c9a84c;
+  --color-bg: #faf8fd;
+  --color-bg-alt: #f0edf8;
+  --color-text: #2c2440;
+  --color-text-light: #6b5f8a;
+  --color-border: #d8d0ec;
+  --color-white: #ffffff;
+  --font-sans: 'Noto Sans JP', sans-serif;
+  --font-serif: 'Noto Serif JP', serif;
+  --shadow-sm: 0 2px 8px rgba(100, 80, 160, 0.10);
+  --shadow-md: 0 4px 20px rgba(100, 80, 160, 0.15);
+  --shadow-lg: 0 8px 40px rgba(100, 80, 160, 0.20);
+  --radius: 12px;
+  --radius-sm: 6px;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.8;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-primary-dark);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===========================
+   ヘッダー
+=========================== */
+.site-header {
+  background: linear-gradient(135deg, #2c2440 0%, #4a3870 50%, #6b4e9e 100%);
+  color: var(--color-white);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 24px 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.back-link-wrap {
+  margin-bottom: 16px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255,255,255,0.75);
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 20px;
+  transition: all 0.2s;
+}
+
+.back-link:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.12);
+  text-decoration: none;
+  border-color: rgba(255,255,255,0.5);
+}
+
+.header-title-wrap {
+  text-align: center;
+}
+
+.header-subtitle {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.header-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 4vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.4;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  margin-bottom: 8px;
+}
+
+.header-en {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.05em;
+  font-style: italic;
+}
+
+/* ===========================
+   ナビゲーション
+=========================== */
+.main-nav {
+  background: var(--color-primary-dark);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.main-nav li a {
+  display: block;
+  padding: 12px 14px;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: color 0.2s, background 0.2s;
+}
+
+.main-nav li a:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+  text-decoration: none;
+}
+
+/* ===========================
+   ヒーローセクション
+=========================== */
+.hero {
+  background: linear-gradient(160deg, #1e1830 0%, #3a2860 60%, #5a3d8a 100%);
+  padding: 48px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(184,169,217,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-images {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.hero-img {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-img--main {
+  width: 180px;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.hero-img--sub {
+  width: 130px;
+  opacity: 0.85;
+  border: 2px solid rgba(255,255,255,0.15);
+}
+
+.hero-info {
+  flex: 1;
+  color: #fff;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.badge--genre {
+  background: rgba(184,169,217,0.3);
+  border: 1px solid rgba(184,169,217,0.5);
+  color: #e8e0f5;
+}
+
+.badge--season {
+  background: rgba(201,168,76,0.25);
+  border: 1px solid rgba(201,168,76,0.5);
+  color: #f0d080;
+}
+
+.hero-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hero-meta-item {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.meta-label {
+  font-size: 0.75rem;
+  color: var(--color-primary);
+  min-width: 80px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.meta-value {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.9);
+}
+
+/* ===========================
+   セクション共通
+=========================== */
+.section {
+  padding: 72px 24px;
+}
+
+.section--alt {
+  background: var(--color-bg-alt);
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 40px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--color-primary);
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--color-accent-dark);
+}
+
+.subsection-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--color-primary-dark);
+  margin: 40px 0 20px;
+  padding-left: 12px;
+  border-left: 4px solid var(--color-primary);
+}
+
+/* ===========================
+   作品概要
+=========================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.about-text p {
+  margin-bottom: 16px;
+  color: var(--color-text);
+  font-size: 0.95rem;
+}
+
+.about-text em {
+  color: var(--color-primary-dark);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.info-table th,
+.info-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.info-table th {
+  color: var(--color-text-light);
+  font-weight: 500;
+  white-space: nowrap;
+  width: 40%;
+  background: var(--color-primary-light);
+}
+
+.info-table tr:last-child th,
+.info-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* テーマカード */
+.theme-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.theme-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.theme-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.theme-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.theme-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 8px;
+}
+
+.theme-card p {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  line-height: 1.7;
+}
+
+/* ===========================
+   あらすじ
+=========================== */
+.story-wrap {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.story-img {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+}
+
+.story-text p {
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  line-height: 1.9;
+}
+
+.story-text em {
+  color: var(--color-accent-dark);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* ===========================
+   登場人物
+=========================== */
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.character-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.character-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.character-card--main {
+  border-top: 3px solid var(--color-primary-dark);
+}
+
+.character-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 20px 0;
+}
+
+.character-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.character-avatar--amane  { background: linear-gradient(135deg, #4a3870, #7c6aaa); }
+.character-avatar--mahiru { background: linear-gradient(135deg, #c06090, #e8a0c0); }
+.character-avatar--itsuki { background: linear-gradient(135deg, #3a6090, #6090c0); }
+.character-avatar--chitose{ background: linear-gradient(135deg, #c07840, #e0a060); }
+.character-avatar--yuta   { background: linear-gradient(135deg, #408060, #60a880); }
+
+.character-name {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.character-name-ruby {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  margin-top: 2px;
+}
+
+.character-cv {
+  font-size: 0.78rem;
+  color: var(--color-primary-dark);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.character-body {
+  padding: 16px 20px 20px;
+}
+
+.character-body p {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  line-height: 1.75;
+  margin-bottom: 12px;
+}
+
+.character-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.char-tag {
+  padding: 3px 10px;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+/* ===========================
+   スタッフ
+=========================== */
+.staff-tables {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.staff-season-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  background: var(--color-primary-light);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--color-primary-dark);
+}
+
+/* ===========================
+   主題歌
+=========================== */
+.music-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.music-card {
+  background: var(--color-white);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.music-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.music-card--op {
+  border-top: 4px solid var(--color-primary-dark);
+}
+
+.music-card--ed {
+  border-top: 4px solid var(--color-accent-dark);
+}
+
+.music-type {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  margin-bottom: 8px;
+}
+
+.music-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.music-artist {
+  font-size: 0.85rem;
+  color: var(--color-primary-dark);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.music-desc {
+  font-size: 0.82rem;
+  color: var(--color-text-light);
+  line-height: 1.7;
+}
+
+/* ===========================
+   各話リスト
+=========================== */
+.episodes-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 28px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.episodes-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  background: var(--color-white);
+}
+
+.episodes-table thead th {
+  background: var(--color-primary-dark);
+  color: #fff;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.episodes-table tbody tr {
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.15s;
+}
+
+.episodes-table tbody tr:hover {
+  background: var(--color-primary-light);
+}
+
+.episodes-table tbody td {
+  padding: 11px 16px;
+  vertical-align: middle;
+}
+
+.episodes-table tbody td:first-child {
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  text-align: center;
+  width: 40px;
+}
+
+.season2-notice {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, #2c2440, #4a3870);
+  color: #fff;
+  padding: 20px 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+.notice-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.season2-notice strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  color: var(--color-primary);
+}
+
+.season2-notice p {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.85);
+}
+
+/* ===========================
+   メディア展開
+=========================== */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.media-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.media-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.media-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.media-card h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 8px;
+}
+
+.media-card p {
+  font-size: 0.83rem;
+  color: var(--color-text-light);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.media-list {
+  list-style: none;
+  padding: 0;
+}
+
+.media-list li {
+  font-size: 0.82rem;
+  color: var(--color-text-light);
+  padding: 3px 0 3px 14px;
+  position: relative;
+}
+
+.media-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+}
+
+/* ===========================
+   ギャラリー
+=========================== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.gallery-item {
+  background: var(--color-white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.03);
+}
+
+.gallery-caption {
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  text-align: center;
+}
+
+/* ===========================
+   フッター
+=========================== */
+.site-footer {
+  background: linear-gradient(135deg, #1e1830, #2c2440);
+  color: rgba(255,255,255,0.7);
+  padding: 48px 24px 32px;
+  text-align: center;
+}
+
+.footer-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.footer-back {
+  margin-bottom: 24px;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--color-primary-dark);
+  color: #fff;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(124,106,170,0.4);
+}
+
+.btn-back:hover {
+  background: #9a80cc;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(124,106,170,0.5);
+  text-decoration: none;
+}
+
+.footer-title {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 8px;
+}
+
+.footer-copy {
+  font-size: 0.78rem;
+  margin-bottom: 6px;
+}
+
+.footer-note {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ===========================
+   フローティングボタン
+=========================== */
+.floating-back {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: var(--color-primary-dark);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(100,80,160,0.4);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  z-index: 200;
+  letter-spacing: 0.05em;
+}
+
+.floating-back:hover {
+  background: #9a80cc;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 28px rgba(100,80,160,0.5);
+  text-decoration: none;
+}
+
+/* ===========================
+   レスポンシブ
+=========================== */
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .story-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .story-img-wrap {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .staff-tables {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-meta-item {
+    justify-content: center;
+  }
+
+  .meta-label {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-nav li a {
+    padding: 10px 10px;
+    font-size: 0.75rem;
+  }
+
+  .section {
+    padding: 48px 16px;
+  }
+
+  .hero {
+    padding: 32px 16px;
+  }
+
+  .hero-images {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-img--sub {
+    display: none;
+  }
+
+  .hero-img--main {
+    width: 160px;
+  }
+
+  .gallery-item img {
+    height: 220px;
+  }
+
+  .floating-back {
+    bottom: 16px;
+    right: 16px;
+    padding: 10px 14px;
+    font-size: 0.78rem;
+  }
+}

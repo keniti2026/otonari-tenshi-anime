@@ -671,6 +671,48 @@ a:hover {
   width: 40px;
 }
 
+/* 各話リンク */
+.ep-link {
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px dotted var(--color-primary-dark);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.ep-link:hover {
+  color: var(--color-accent-dark);
+  border-bottom-color: var(--color-accent-dark);
+}
+
+/* 第6話強調行 */
+.ep-highlight {
+  background: linear-gradient(90deg, #fff8e1 0%, #fff3e0 100%) !important;
+  border-left: 4px solid var(--color-gold) !important;
+}
+
+.ep-highlight td {
+  font-weight: 600;
+}
+
+/* 第6話強調リンク */
+.ep-link--featured {
+  color: #b8860b;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-bottom: 2px solid #c9a84c;
+  background: linear-gradient(90deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02));
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.ep-link--featured:hover {
+  color: #8b6914;
+  background: rgba(201,168,76,0.18);
+  border-bottom-color: #8b6914;
+}
+
 .season2-notice {
   display: flex;
   align-items: center;

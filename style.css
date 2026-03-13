@@ -713,6 +713,13 @@ a:hover {
   border-bottom-color: #8b6914;
 }
 
+/* ポータルバナーラッパー */
+.portal-banner-wrap {
+  max-width: 860px;
+  margin: 32px auto;
+  padding: 0 24px;
+}
+
 .season2-notice {
   display: flex;
   align-items: center;

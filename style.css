@@ -713,6 +713,13 @@ a:hover {
   border-bottom-color: #8b6914;
 }
 
+/* シーズン区切り線 */
+.season-divider {
+  border: none;
+  border-top: 2px dashed var(--color-border);
+  margin: 40px 0 32px;
+}
+
 /* ポータルバナーラッパー */
 .portal-banner-wrap {
   max-width: 860px;

@@ -713,6 +713,19 @@ a:hover {
   border-bottom-color: #8b6914;
 }
 
+/* インラインリンク（本文・テーブル内） */
+.inline-link {
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-primary-dark);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.inline-link:hover {
+  color: var(--color-accent-dark);
+  border-bottom-color: var(--color-accent-dark);
+}
+
 /* 登場人物リンク */
 .character-link-wrap {
   margin-top: 12px;

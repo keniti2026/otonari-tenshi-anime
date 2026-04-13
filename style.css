@@ -713,6 +713,26 @@ a:hover {
   border-bottom-color: #8b6914;
 }
 
+/* YouTube動画埋め込み */
+.music-video-wrap {
+  margin-top: 14px;
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.music-video-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
 /* インラインリンク（本文・テーブル内） */
 .inline-link {
   color: var(--color-primary-dark);

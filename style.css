@@ -565,14 +565,14 @@ a:hover {
    主題歌
 =========================== */
 .music-cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
   gap: 28px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .music-cards {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
 }
 

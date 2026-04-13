@@ -713,6 +713,30 @@ a:hover {
   border-bottom-color: #8b6914;
 }
 
+/* 登場人物リンク */
+.character-link-wrap {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border);
+}
+
+.character-link {
+  display: inline-block;
+  color: var(--color-primary-dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 5px 12px;
+  border: 1px solid var(--color-primary-dark);
+  border-radius: 20px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.character-link:hover {
+  background: var(--color-primary-dark);
+  color: #fff;
+}
+
 /* シーズン区切り線 */
 .season-divider {
   border: none;

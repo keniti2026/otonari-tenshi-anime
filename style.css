@@ -630,6 +630,31 @@ a:hover {
   line-height: 1.7;
 }
 
+/* ギャラリーキャプション・引用表記 */
+.gallery-caption-wrap {
+  margin: 0;
+  padding: 0;
+}
+
+.gallery-caption {
+  font-size: 0.82rem;
+  color: var(--color-text);
+  line-height: 1.55;
+  margin-top: 8px;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.gallery-credit {
+  font-size: 0.68rem;
+  color: var(--color-text-light);
+  line-height: 1.5;
+  border-left: 2px solid var(--color-border);
+  padding-left: 6px;
+  margin-top: 4px;
+  font-style: italic;
+}
+
 /* ===========================
    各話リスト
 =========================== */

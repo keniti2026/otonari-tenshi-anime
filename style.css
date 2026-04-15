@@ -564,6 +564,15 @@ a:hover {
 /* ===========================
    主題歌
 =========================== */
+.music-season-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  border-left: 4px solid var(--color-primary-dark);
+  padding-left: 0.75rem;
+  margin: 2rem 0 1rem;
+}
+
 .music-cards {
   display: grid !important;
   grid-template-columns: repeat(2, 1fr) !important;

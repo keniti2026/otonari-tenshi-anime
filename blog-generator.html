@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>文字起こし → ブログ記事生成ツール</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="blog-generator.css" />
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="index.html" class="back-link">&#8592; サイトトップ</a>
+      </div>
+      <div class="header-title-wrap">
+        <p class="header-subtitle">AI ブログライティングツール</p>
+        <h1 class="header-title">文字起こし &#8594; ブログ記事生成</h1>
+        <p class="header-desc">文字起こしを貼り付けると、指定した作業工程に従ってブログ記事を自動生成します</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <div class="app-container">
+
+      <!-- ① API キー設定 -->
+      <section class="card" id="section-api">
+        <div class="card-header" id="api-header" onclick="toggleCard('api')">
+          <div class="card-title">
+            <span class="badge-step badge-config">設定</span>
+            Claude API キー設定
+          </div>
+          <span class="toggle-icon" id="api-icon">&#9660;</span>
+        </div>
+        <div class="card-body" id="api-body">
+          <p class="help-text">
+            Anthropic の Claude API キーを入力してください。キーはこのブラウザのローカルストレージに保存されます。
+            サーバーには送信されません。
+          </p>
+          <div class="input-group">
+            <label class="input-label" for="api-key-input">API キー</label>
+            <div class="api-key-row">
+              <input type="password" id="api-key-input" class="input-field" placeholder="sk-ant-api03-..." />
+              <button class="btn btn--sm btn--ghost" onclick="toggleApiVis(this)">表示</button>
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="model-select">使用モデル</label>
+            <select id="model-select" class="input-field input-field--select">
+              <option value="claude-opus-4-8">claude-opus-4-8（最高品質）</option>
+              <option value="claude-sonnet-4-6" selected>claude-sonnet-4-6（推奨・バランス）</option>
+              <option value="claude-haiku-4-5-20251001">claude-haiku-4-5（高速・軽量）</option>
+            </select>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn--primary" onclick="saveApiKey()">保存する</button>
+            <button class="btn btn--ghost btn--danger" onclick="clearApiKey()">削除する</button>
+          </div>
+          <p id="api-status" class="status-msg"></p>
+        </div>
+      </section>
+
+      <!-- ② 作業工程設定 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="badge-step">1</span>
+            作業工程（指示）の設定
+          </div>
+          <button class="btn btn--sm btn--ghost" onclick="resetSteps()">デフォルトに戻す</button>
+        </div>
+        <div class="card-body">
+          <p class="help-text">
+            ブログ記事作成の手順をここで定義します。各ステップが Claude への指示となります。
+            ドラッグ操作でステップを並び替えることができます。
+          </p>
+          <div id="steps-list" class="steps-list"></div>
+          <button class="btn btn--secondary add-step-btn" onclick="addStep()">
+            <span>&#43;</span> ステップを追加
+          </button>
+        </div>
+      </section>
+
+      <!-- ③ ブログ設定 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="badge-step">2</span>
+            ブログ記事の詳細設定
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="settings-grid">
+            <div class="input-group">
+              <label class="input-label" for="blog-tone">文体・トーン</label>
+              <select id="blog-tone" class="input-field input-field--select">
+                <option value="professional">プロフェッショナル・丁寧</option>
+                <option value="friendly">フレンドリー・親しみやすい</option>
+                <option value="casual">カジュアル・話し言葉</option>
+                <option value="formal">フォーマル・硬め</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="blog-length">記事の長さ</label>
+              <select id="blog-length" class="input-field input-field--select">
+                <option value="short">短め（500〜800字）</option>
+                <option value="medium" selected>標準（1,000〜1,500字）</option>
+                <option value="long">長め（2,000〜3,000字）</option>
+                <option value="detailed">詳細（3,000字以上）</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="blog-format">出力フォーマット</label>
+              <select id="blog-format" class="input-field input-field--select">
+                <option value="markdown">Markdown</option>
+                <option value="html">HTML</option>
+                <option value="plain">プレーンテキスト</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="blog-target">対象読者</label>
+              <input type="text" id="blog-target" class="input-field" placeholder="例: ビジネスパーソン、主婦、20代の学生 など" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="blog-keywords">
+              SEO キーワード <span class="label-optional">（任意）</span>
+            </label>
+            <input type="text" id="blog-keywords" class="input-field"
+              placeholder="例: マーケティング, SNS活用, ブランディング（カンマ区切り）" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ④ 文字起こし入力 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="badge-step">3</span>
+            文字起こしの入力
+          </div>
+          <span class="char-count" id="char-count">0 文字</span>
+        </div>
+        <div class="card-body">
+          <textarea
+            id="transcription-input"
+            class="input-field textarea-xl"
+            placeholder="ここに文字起こしのテキストを貼り付けてください&#10;&#10;（動画の文字起こし、インタビュー記録、会議の議事録、音声テキスト化データなど）"
+            oninput="updateCharCount()"
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- 生成ボタン -->
+      <div class="generate-area">
+        <button class="btn btn--generate" id="generate-btn" onclick="generateBlog()">
+          <span class="btn-icon">&#10024;</span>
+          ブログ記事を生成する
+        </button>
+        <p class="generate-hint">Claude AI が作業工程に従ってブログ記事を自動生成します</p>
+      </div>
+
+      <!-- 進行状況 -->
+      <div id="progress-wrap" class="progress-wrap" style="display:none">
+        <div class="progress-inner">
+          <div class="spinner"></div>
+          <div>
+            <p class="progress-title">生成中...</p>
+            <p id="progress-text" class="progress-sub">Claude が記事を作成しています。しばらくお待ちください。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑤ 出力 -->
+      <section class="card card--output" id="output-section" style="display:none">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="badge-step badge-done">&#10003;</span>
+            生成されたブログ記事
+          </div>
+          <div class="output-actions">
+            <button class="btn btn--sm" id="copy-btn" onclick="copyOutput()">コピー</button>
+            <button class="btn btn--sm" onclick="downloadOutput()">ダウンロード</button>
+            <button class="btn btn--sm btn--ghost" id="preview-btn" onclick="togglePreview()">プレビュー</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <pre id="output-raw" class="output-raw"></pre>
+          <div id="output-preview" class="output-preview" style="display:none"></div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <p>文字起こし &#8594; ブログ記事生成ツール &#124; Powered by Claude AI (Anthropic)</p>
+  </footer>
+
+  <script src="blog-generator.js"></script>
+</body>
+</html>

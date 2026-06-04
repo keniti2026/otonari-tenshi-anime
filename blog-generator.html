@@ -18,7 +18,7 @@
       <div class="header-title-wrap">
         <p class="header-subtitle">AI ブログ下書き生成ツール</p>
         <h1 class="header-title">文字起こし &#8594; ブログ下書き</h1>
-        <p class="header-desc">文字起こしを貼り付けるだけで、ブログ・音声配信の下書き素材を自動生成します</p>
+        <p class="header-desc">文字起こしを貼り付けるだけで、4ステップで完成稿まで自動生成します</p>
       </div>
     </div>
   </header>
@@ -26,8 +26,46 @@
   <main class="app-main">
     <div class="app-container">
 
-      <!-- API キー設定（折りたたみ） -->
-      <section class="card card--api" id="api-section">
+      <!-- パイプライン表示 -->
+      <div class="pipeline">
+        <div class="pipe-step pipe-step--active" id="pipe-a">
+          <span class="pipe-label">A</span>
+          <span class="pipe-name">文字起こし</span>
+        </div>
+        <div class="pipe-arrow">&#8594;</div>
+        <div class="pipe-step" id="pipe-b">
+          <span class="pipe-label">B</span>
+          <span class="pipe-name">エッセンス抽出</span>
+        </div>
+        <div class="pipe-arrow">&#8594;</div>
+        <div class="pipe-step" id="pipe-c">
+          <span class="pipe-label">C</span>
+          <span class="pipe-name">アニメレビュー</span>
+        </div>
+        <div class="pipe-arrow">&#8594;</div>
+        <div class="pipe-step" id="pipe-d">
+          <span class="pipe-label">D</span>
+          <span class="pipe-name">ファクトチェック済</span>
+        </div>
+        <div class="pipe-arrow">&#8594;</div>
+        <div class="pipe-step" id="pipe-e">
+          <span class="pipe-label">E</span>
+          <span class="pipe-name">モバイル最適化</span>
+        </div>
+        <div class="pipe-arrow">&#8594;</div>
+        <div class="pipe-step" id="pipe-f">
+          <span class="pipe-label">F</span>
+          <span class="pipe-name">リード・見出し最終仕上げ</span>
+        </div>
+        <div class="pipe-arrow">&#8594;</div>
+        <div class="pipe-step" id="pipe-g">
+          <span class="pipe-label">G</span>
+          <span class="pipe-name">SEO メタデータ</span>
+        </div>
+      </div>
+
+      <!-- API キー設定 -->
+      <section class="card card--api">
         <div class="card-header card-header--toggle" onclick="toggleApiSection()">
           <span class="card-title-sm">&#9881; Claude API キー設定</span>
           <span class="toggle-icon" id="api-toggle-icon">&#9660;</span>
@@ -46,10 +84,13 @@
         </div>
       </section>
 
-      <!-- 文字起こし入力 -->
-      <section class="card card--main">
+      <!-- STEP A：文字起こし入力 -->
+      <section class="card card--step card--step-a">
         <div class="card-header">
-          <div class="card-title">文字起こしを貼り付けてください</div>
+          <div class="card-title">
+            <span class="step-badge step-badge--a">A</span>
+            文字起こし
+          </div>
           <span class="char-count" id="char-count">0 文字</span>
         </div>
         <div class="card-body">
@@ -59,35 +100,193 @@
             placeholder="ラジオ深夜便のインタビュー、アニメ・ドラマのセリフ、音声文字起こしなど&#10;テキストをここに貼り付けてください..."
             oninput="updateCharCount()"
           ></textarea>
+          <div class="step-action">
+            <button class="btn btn--generate" id="gen-b-btn" onclick="generateB()">
+              B を生成する &#8594;
+            </button>
+            <p class="step-hint">エッセンス抽出・技術者視点・花言葉紐付けを行います</p>
+          </div>
         </div>
       </section>
 
-      <!-- 生成ボタン -->
-      <div class="generate-area">
-        <button class="btn btn--generate" id="generate-btn" onclick="generateBlog()">
-          &#10024; 下書きを生成する
-        </button>
-      </div>
-
-      <!-- 進行状況 -->
-      <div id="progress-wrap" class="progress-wrap" style="display:none">
+      <!-- プログレスB -->
+      <div id="progress-b" class="progress-wrap" style="display:none">
         <div class="spinner"></div>
-        <p id="progress-text">Claude が下書きを作成しています...</p>
+        <p id="progress-b-text">B を生成しています（エッセンス抽出）...</p>
       </div>
 
-      <!-- 出力エリア -->
-      <section class="card card--output" id="output-section" style="display:none">
+      <!-- STEP B：エッセンスまとめ -->
+      <section class="card card--step card--step-b" id="section-b" style="display:none">
         <div class="card-header">
-          <div class="card-title">&#128221; 生成された下書き</div>
+          <div class="card-title">
+            <span class="step-badge step-badge--b">B</span>
+            エッセンスまとめ
+          </div>
           <div class="output-actions">
-            <button class="btn btn--sm" id="copy-btn" onclick="copyOutput()">コピー</button>
-            <button class="btn btn--sm" onclick="downloadOutput()">ダウンロード</button>
-            <button class="btn btn--sm btn--ghost" id="preview-btn" onclick="togglePreview()">プレビュー</button>
+            <button class="btn btn--sm" onclick="copyText('output-b')">コピー</button>
+            <button class="btn btn--sm" onclick="downloadText('output-b','B-essence')">DL</button>
+            <button class="btn btn--sm btn--ghost" onclick="togglePreview('output-b','preview-b','prev-btn-b',this)" id="prev-btn-b">プレビュー</button>
           </div>
         </div>
         <div class="card-body">
-          <pre id="output-raw" class="output-raw"></pre>
-          <div id="output-preview" class="output-preview" style="display:none"></div>
+          <pre id="output-b" class="output-raw"></pre>
+          <div id="preview-b" class="output-preview" style="display:none"></div>
+          <div class="step-action">
+            <button class="btn btn--generate btn--generate-c" id="gen-c-btn" onclick="generateC()">
+              C としてリライトする &#8594;
+            </button>
+            <p class="step-hint">アニメレビュー形式（健一 60歳ペルソナ）に書き換えます</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- プログレスC -->
+      <div id="progress-c" class="progress-wrap" style="display:none">
+        <div class="spinner"></div>
+        <p id="progress-c-text">C を生成しています（アニメレビュー化）...</p>
+      </div>
+
+      <!-- STEP C：アニメレビュー草稿 -->
+      <section class="card card--step card--step-c" id="section-c" style="display:none">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="step-badge step-badge--c">C</span>
+            アニメレビュー草稿
+          </div>
+          <div class="output-actions">
+            <button class="btn btn--sm" onclick="copyText('output-c')">コピー</button>
+            <button class="btn btn--sm" onclick="downloadText('output-c','C-review')">DL</button>
+            <button class="btn btn--sm btn--ghost" onclick="togglePreview('output-c','preview-c','prev-btn-c',this)" id="prev-btn-c">プレビュー</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <pre id="output-c" class="output-raw"></pre>
+          <div id="preview-c" class="output-preview" style="display:none"></div>
+          <div class="step-action">
+            <button class="btn btn--generate btn--generate-d" id="gen-d-btn" onclick="generateD()">
+              D としてファクトチェックする &#8594;
+            </button>
+            <p class="step-hint">事実確認を行い、誤りがあれば信頼できる情報で修正します</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- プログレスD -->
+      <div id="progress-d" class="progress-wrap" style="display:none">
+        <div class="spinner"></div>
+        <p id="progress-d-text">D を生成しています（ファクトチェック・修正）...</p>
+      </div>
+
+      <!-- STEP D：ファクトチェック済み完成稿 -->
+      <section class="card card--step card--step-d" id="section-d" style="display:none">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="step-badge step-badge--d">D</span>
+            ファクトチェック済み完成稿
+          </div>
+          <div class="output-actions">
+            <button class="btn btn--sm" onclick="copyText('output-d')">コピー</button>
+            <button class="btn btn--sm" onclick="downloadText('output-d','D-factchecked')">DL</button>
+            <button class="btn btn--sm btn--ghost" onclick="togglePreview('output-d','preview-d','prev-btn-d',this)" id="prev-btn-d">プレビュー</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <pre id="output-d" class="output-raw"></pre>
+          <div id="preview-d" class="output-preview" style="display:none"></div>
+          <div class="step-action">
+            <button class="btn btn--generate btn--generate-e" id="gen-e-btn" onclick="generateE()">
+              E としてモバイル最適化する &#8594;
+            </button>
+            <p class="step-hint">構成整理・記号削除・Google モバイルフレンドリー形式に変換します</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- プログレスE -->
+      <div id="progress-e" class="progress-wrap" style="display:none">
+        <div class="spinner"></div>
+        <p id="progress-e-text">E を生成しています（モバイル最適化・構成整理）...</p>
+      </div>
+
+      <!-- STEP E：モバイル最適化済み -->
+      <section class="card card--step card--step-e" id="section-e" style="display:none">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="step-badge step-badge--e">E</span>
+            モバイル最適化済み
+          </div>
+          <div class="output-actions">
+            <button class="btn btn--sm" onclick="copyText('output-e')">コピー</button>
+            <button class="btn btn--sm" onclick="downloadText('output-e','E-mobile')">DL</button>
+            <button class="btn btn--sm btn--ghost" onclick="togglePreview('output-e','preview-e','prev-btn-e',this)" id="prev-btn-e">プレビュー</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <pre id="output-e" class="output-raw"></pre>
+          <div id="preview-e" class="output-preview" style="display:none"></div>
+          <div class="step-action">
+            <button class="btn btn--generate btn--generate-f" id="gen-f-btn" onclick="generateF()">
+              F として最終仕上げする &#8594;
+            </button>
+            <p class="step-hint">リード文添削・見出し最適化・H2直下への結論追加を行います</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- プログレスF -->
+      <div id="progress-f" class="progress-wrap" style="display:none">
+        <div class="spinner"></div>
+        <p id="progress-f-text">F を生成しています（リード文・見出し・結論の最終仕上げ）...</p>
+      </div>
+
+      <!-- STEP F：最終完成稿 -->
+      <section class="card card--step card--step-f" id="section-f" style="display:none">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="step-badge step-badge--f">F</span>
+            最終完成稿（リード・見出し整備済み）
+          </div>
+          <div class="output-actions">
+            <button class="btn btn--sm" onclick="copyText('output-f')">コピー</button>
+            <button class="btn btn--sm" onclick="downloadText('output-f','F-final')">DL</button>
+            <button class="btn btn--sm btn--ghost" onclick="togglePreview('output-f','preview-f','prev-btn-f',this)" id="prev-btn-f">プレビュー</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <pre id="output-f" class="output-raw"></pre>
+          <div id="preview-f" class="output-preview" style="display:none"></div>
+          <div class="step-action">
+            <button class="btn btn--generate btn--generate-g" id="gen-g-btn" onclick="generateG()">
+              G として SEO メタデータを生成する &#8594;
+            </button>
+            <p class="step-hint">タイトル案・SEOタイトル・メタディスクリプション・タグを生成します（記事本文とは別に出力）</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- プログレスG -->
+      <div id="progress-g" class="progress-wrap" style="display:none">
+        <div class="spinner"></div>
+        <p id="progress-g-text">G を生成しています（SEOメタデータ分析中）...</p>
+      </div>
+
+      <!-- STEP G：SEO メタデータ（ゴール） -->
+      <section class="card card--step card--step-g card--goal" id="section-g" style="display:none">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="step-badge step-badge--g">G</span>
+            SEO メタデータ &nbsp;<span class="goal-badge">GOAL</span>
+          </div>
+          <div class="output-actions">
+            <button class="btn btn--sm" onclick="copyText('output-g')">コピー</button>
+            <button class="btn btn--sm" onclick="downloadText('output-g','G-seo')">DL</button>
+            <button class="btn btn--sm btn--ghost" onclick="togglePreview('output-g','preview-g','prev-btn-g',this)" id="prev-btn-g">プレビュー</button>
+            <button class="btn btn--sm btn--primary" onclick="saveCurrentRecord()">&#128190; 全ステップを保存</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <pre id="output-g" class="output-raw"></pre>
+          <div id="preview-g" class="output-preview" style="display:none"></div>
         </div>
       </section>
 
@@ -101,7 +300,8 @@
           <div id="history-list" class="history-list">
             <p class="empty-msg">まだ保存された履歴はありません。</p>
           </div>
-          <button class="btn btn--ghost btn--sm btn--danger" onclick="clearAllHistory()" id="clear-history-btn" style="display:none">
+          <button class="btn btn--ghost btn--sm btn--danger"
+            onclick="clearAllHistory()" id="clear-history-btn" style="display:none">
             &#128465; 全履歴を削除
           </button>
         </div>

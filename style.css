@@ -846,13 +846,6 @@ a:hover {
   margin: 40px 0 32px;
 }
 
-/* ポータルバナーラッパー */
-.portal-banner-wrap {
-  max-width: 860px;
-  margin: 32px auto;
-  padding: 0 24px;
-}
-
 .season2-notice {
   display: flex;
   align-items: center;

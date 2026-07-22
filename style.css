@@ -1061,6 +1061,10 @@ a:hover {
 
 .footer-back {
   margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
 }
 
 .btn-back {

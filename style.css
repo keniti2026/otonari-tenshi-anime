@@ -8,25 +8,25 @@
 }
 
 :root {
-  --color-primary: #b8a9d9;
-  --color-primary-dark: #7c6aaa;
-  --color-primary-light: #e8e0f5;
-  --color-accent: #f0a0b8;
-  --color-accent-dark: #d4607a;
+  --color-primary: #c1552c;
+  --color-primary-dark: #7a3418;
+  --color-primary-light: #f3ddb0;
+  --color-accent: #e0a83c;
+  --color-accent-dark: #a8391f;
   --color-gold: #c9a84c;
-  --color-bg: #faf8fd;
-  --color-bg-alt: #f0edf8;
-  --color-text: #2c2440;
-  --color-text-light: #6b5f8a;
-  --color-border: #d8d0ec;
-  --color-white: #ffffff;
+  --color-bg: #f7f0e0;
+  --color-bg-alt: #efe2c3;
+  --color-text: #3a2b1c;
+  --color-text-light: #6b5238;
+  --color-border: #ddc79a;
+  --color-white: #fffdf7;
   --font-sans: 'Noto Sans JP', sans-serif;
   --font-serif: 'Noto Serif JP', serif;
-  --shadow-sm: 0 2px 8px rgba(100, 80, 160, 0.10);
-  --shadow-md: 0 4px 20px rgba(100, 80, 160, 0.15);
-  --shadow-lg: 0 8px 40px rgba(100, 80, 160, 0.20);
-  --radius: 12px;
-  --radius-sm: 6px;
+  --shadow-sm: 0 2px 8px rgba(120, 72, 30, 0.12);
+  --shadow-md: 0 4px 20px rgba(120, 72, 30, 0.18);
+  --shadow-lg: 0 8px 40px rgba(120, 72, 30, 0.22);
+  --radius: 10px;
+  --radius-sm: 5px;
 }
 
 html {
@@ -60,7 +60,7 @@ a:hover {
    ヘッダー
 =========================== */
 .site-header {
-  background: linear-gradient(135deg, #2c2440 0%, #4a3870 50%, #6b4e9e 100%);
+  background: linear-gradient(135deg, #2b1810 0%, #6b2e15 50%, #b5541f 100%);
   color: var(--color-white);
   padding: 0;
   position: relative;
@@ -113,7 +113,7 @@ a:hover {
 .header-subtitle {
   font-size: 0.8rem;
   letter-spacing: 0.2em;
-  color: var(--color-primary);
+  color: var(--color-accent);
   text-transform: uppercase;
   margin-bottom: 8px;
 }
@@ -176,7 +176,7 @@ a:hover {
    ヒーローセクション
 =========================== */
 .hero {
-  background: linear-gradient(160deg, #1e1830 0%, #3a2860 60%, #5a3d8a 100%);
+  background: linear-gradient(160deg, #241408 0%, #4a2410 60%, #8a441c 100%);
   padding: 48px 24px;
   position: relative;
   overflow: hidden;
@@ -185,7 +185,7 @@ a:hover {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 70% 50%, rgba(184,169,217,0.15) 0%, transparent 70%);
+  background: radial-gradient(ellipse at 70% 50%, rgba(224,168,60,0.18) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -243,9 +243,9 @@ a:hover {
 }
 
 .badge--genre {
-  background: rgba(184,169,217,0.3);
-  border: 1px solid rgba(184,169,217,0.5);
-  color: #e8e0f5;
+  background: rgba(224,168,60,0.25);
+  border: 1px solid rgba(224,168,60,0.5);
+  color: #f5dfa0;
 }
 
 .badge--season {
@@ -268,7 +268,7 @@ a:hover {
 
 .meta-label {
   font-size: 0.75rem;
-  color: var(--color-primary);
+  color: var(--color-accent);
   min-width: 80px;
   font-weight: 500;
   letter-spacing: 0.05em;
@@ -489,11 +489,11 @@ a:hover {
   flex-shrink: 0;
 }
 
-.character-avatar--amane  { background: linear-gradient(135deg, #4a3870, #7c6aaa); }
-.character-avatar--mahiru { background: linear-gradient(135deg, #c06090, #e8a0c0); }
-.character-avatar--itsuki { background: linear-gradient(135deg, #3a6090, #6090c0); }
-.character-avatar--chitose{ background: linear-gradient(135deg, #c07840, #e0a060); }
-.character-avatar--yuta   { background: linear-gradient(135deg, #408060, #60a880); }
+.character-avatar--amane  { background: linear-gradient(135deg, #5c2f16, #b5541f); }
+.character-avatar--mahiru { background: linear-gradient(135deg, #a8391f, #e08050); }
+.character-avatar--itsuki { background: linear-gradient(135deg, #1f5c52, #3f9a84); }
+.character-avatar--chitose{ background: linear-gradient(135deg, #a87c1f, #e0a83c); }
+.character-avatar--yuta   { background: linear-gradient(135deg, #4a5c1f, #7a9a3f); }
 
 .character-name {
   font-family: var(--font-serif);
@@ -850,7 +850,7 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: linear-gradient(135deg, #2c2440, #4a3870);
+  background: linear-gradient(135deg, #2b1810, #6b2e15);
   color: #fff;
   padding: 20px 24px;
   border-radius: var(--radius);
@@ -866,7 +866,7 @@ a:hover {
   display: block;
   font-size: 1rem;
   margin-bottom: 4px;
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .season2-notice p {
@@ -920,11 +920,11 @@ a:hover {
 }
 
 .media-table tbody tr:nth-child(even) {
-  background: #f9f5ff;
+  background: #fbf3e0;
 }
 
 .media-table tbody tr:hover {
-  background: #f0e8ff;
+  background: #f5e6c8;
 }
 
 .media-link-wrap {
@@ -1048,7 +1048,7 @@ a:hover {
    フッター
 =========================== */
 .site-footer {
-  background: linear-gradient(135deg, #1e1830, #2c2440);
+  background: linear-gradient(135deg, #241408, #3d1f0e);
   color: rgba(255,255,255,0.7);
   padding: 48px 24px 32px;
   text-align: center;
@@ -1078,13 +1078,13 @@ a:hover {
   font-size: 0.9rem;
   font-weight: 500;
   transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 16px rgba(124,106,170,0.4);
+  box-shadow: 0 4px 16px rgba(122,52,24,0.4);
 }
 
 .btn-back:hover {
-  background: #9a80cc;
+  background: #c1683a;
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(124,106,170,0.5);
+  box-shadow: 0 6px 24px rgba(122,52,24,0.5);
   text-decoration: none;
 }
 
@@ -1118,16 +1118,16 @@ a:hover {
   border-radius: 30px;
   font-size: 0.82rem;
   font-weight: 700;
-  box-shadow: 0 4px 20px rgba(100,80,160,0.4);
+  box-shadow: 0 4px 20px rgba(122,52,24,0.4);
   transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
   z-index: 200;
   letter-spacing: 0.05em;
 }
 
 .floating-back:hover {
-  background: #9a80cc;
+  background: #c1683a;
   transform: translateY(-3px);
-  box-shadow: 0 6px 28px rgba(100,80,160,0.5);
+  box-shadow: 0 6px 28px rgba(122,52,24,0.5);
   text-decoration: none;
 }
 

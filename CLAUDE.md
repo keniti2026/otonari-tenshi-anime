@@ -58,7 +58,9 @@ python -m http.server 8000
 ## 最近の状態
 
 - 2026-07-17: ページ上部と各話リスト上部のポータルバナーを削除（PR #2、`main`へマージ済み）。
-- PR #1「Codex管理用設定を追加」は現在もオープンです。`AGENTS.md`、`README.md`、`.editorconfig`、`.gitignore`を含むため、内容を確認してからマージまたはクローズしてください。
+- 2026-07-23: PR #1「Codex管理用設定を追加」（`AGENTS.md`、`README.md`、`.editorconfig`、`.gitignore`）が`main`へマージ済み。サイト本体（HTML/CSS/JS/画像）への変更は含まれない。
+- 2026-07-23: PR #3「Claude Code handoff guide」（この`CLAUDE.md`）、PR #4「歴史・反響ページとリンク集ページを追加」（`history.html`、`links.html`）が`main`へマージ済み。
+- 2026-07-24: TOPページを含むサイト全体の配色を「昭和モダン」テイスト（テラコッタ・マスタード・ダークブラウン主体）へ変更。`claude/ohayou-msjqui`ブランチで作業中、PR未作成。
 
 ## 依頼の出し方
 
